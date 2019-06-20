@@ -1,9 +1,7 @@
 import React from 'react';
-import ReactDom from 'react-dom';
 import Controls from './Controls';
 import { render, fireEvent } from '@testing-library/react';
 import '@testing-library/react/cleanup-after-each';
-import { get } from 'https';
 
 describe('Lock button.', () => {
   it('Should not function while gate is open.', () => {
