@@ -3,6 +3,7 @@ import ReactDom from 'react-dom';
 import Controls from './Controls';
 import { render, fireEvent } from '@testing-library/react';
 import '@testing-library/react/cleanup-after-each';
+import { get } from 'https';
 
 describe('Lock button.', () => {
   it('Should not function while gate is open.', () => {
@@ -30,5 +31,18 @@ describe('Lock button.', () => {
     const button = getByText(/lock gate/i);
     fireEvent.click(button);
     expect(toggleLocked).toBeCalledTimes(1);
+  });
+  it('Should not open or close while gate is locked.', () => {
+    const toggleClosed = jest.fn();
+    const { getByText } = render(
+      <Controls
+        toggleClosed={toggleClosed}
+        closed={true}
+        locked={true}
+      />
+    );
+    const button = getByText(/open gate/i);
+    fireEvent.click(button);
+    expect(toggleClosed).toBeCalledTimes(0);
   });
 });
